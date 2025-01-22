@@ -125,3 +125,4 @@ Este proyecto está bajo la Licencia MIT. Consulta el archivo [LICENSE](./LICENS
 VolunChain está siendo desarrollado con pasión por un equipo de colaboradores en ODBoost. ¡Sé parte de esta revolución en Web3!
 
 🎉 **Empowering Volunteerism, One Block at a Time.** 🎉
+    
