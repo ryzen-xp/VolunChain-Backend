@@ -1,16 +1,17 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
-    "module": "ESNext",                // Cambia el módulo a ESNext
-    "moduleResolution": "Node",
-    "outDir": "./dist",
-    "rootDir": "./src",
-    "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true
+    "target": "ES2020",                // Compila a ES2020
+    "module": "CommonJS",              // Usa CommonJS para compatibilidad con Node.js
+    "moduleResolution": "Node",        // Resuelve módulos al estilo de Node.js
+    "strict": true,                    // Activa reglas estrictas de TypeScript
+    "esModuleInterop": true,           // Interoperabilidad con CommonJS
+    "skipLibCheck": true,              // Omite chequeo de tipos en dependencias
+    "emitDecoratorMetadata": true,     // Emite metadatos necesarios para TypeORM
+    "experimentalDecorators": true,    // Habilita decoradores
+    "outDir": "./dist",                // Directorio de salida para archivos transpilados
+    "rootDir": "./src",                // Directorio raíz de los archivos fuente
+    "strictPropertyInitialization": false // Permite propiedades no inicializadas
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules"]
+  "include": ["src/**/*"],             // Incluye todos los archivos en `src`
+  "exclude": ["node_modules"]          // Excl
 }
