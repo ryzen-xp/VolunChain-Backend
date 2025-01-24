@@ -1,33 +1,12 @@
 import { DataSource } from "typeorm";
-import dotenv from "dotenv";
 
-dotenv.config();
-
-const isTestEnv = process.env.NODE_ENV === "test";
-
-
-console.log(`Environment: ${process.env.NODE_ENV}`);
-const AppDataSource = new DataSource(
-  isTestEnv
-    ? {
-        type: "sqlite",
-        database: ":memory:",
-        entities: [__dirname + '/../entities/*.{ts,js}'],
-        migrations: [__dirname + '/../migrations/*.{ts,js}'],
-        synchronize: true, 
-        logging: false, 
-      }
-    : {
-        type: "postgres",
-        url: process.env.DATABASE_URL,
-        entities: [__dirname + '/../entities/*.{ts,js}'],
-        migrations: [__dirname + '/../migrations/*.{ts,js}'],
-        ssl: {
-          rejectUnauthorized: false,
-        },
-        synchronize: false,
-        logging: false,
-      }
-);
+const AppDataSource = new DataSource({
+  type: "postgres",
+  url: process.env.DATABASE_URL, // Usa DATABASE_URL desde variables de entorno
+  entities: ["dist/entities/**/*.js"], // Rutas compatibles con `dist`
+  migrations: ["dist/migrations/**/*.js"],
+  synchronize: true, // Cambiar a false en producción
+  logging: true,
+});
 
 export default AppDataSource;

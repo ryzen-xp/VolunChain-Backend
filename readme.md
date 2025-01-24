@@ -1,53 +1,54 @@
+
 # VolunChain
 
 ![VolunChain Banner](https://x.com/volunchain/banner.jpg)  
 
-## Innovando el Voluntariado con Blockchain 🚀
+## Innovating Volunteering with Blockchain 🚀
 
-**VolunChain** es una plataforma revolucionaria basada en blockchain diseñada para conectar voluntarios con organizaciones de manera transparente, descentralizada y eficiente. Nuestra misión es transformar el voluntariado en una experiencia más accesible, segura y gratificante para todos los involucrados.
-
----
-
-## Características Principales 🌟
-
-- **Conexión de Oportunidades:** Vincula voluntarios con organizaciones a través de una plataforma descentralizada.
-- **NFTs como Certificaciones:** Celebra los logros de los voluntarios con coleccionables digitales únicos.
-- **Recompensas Tokenizadas:** Motiva a los voluntarios con incentivos a medida que contribuyen en proyectos.
-- **Governanza Comunitaria:** Planeamos un modelo DAO para que los usuarios participen activamente en la evolución del proyecto.
-- **Transparencia y Seguridad:** Gracias a la tecnología blockchain, todas las transacciones y datos son verificables y seguros.
-- **Escalabilidad Global:** Diseñado para funcionar en múltiples regiones, conectando comunidades de todo el mundo.
+**VolunChain** is a revolutionary blockchain-based platform designed to connect volunteers with organizations in a transparent, decentralized, and efficient way. Our mission is to transform volunteering into a more accessible, secure, and rewarding experience for everyone involved.
 
 ---
 
-## Tecnologías Utilizadas 🛠️
+## Main Features 🌟
+
+- **Opportunity Connection:** Links volunteers with organizations through a decentralized platform.
+- **NFTs as Certifications:** Celebrate volunteers' achievements with unique digital collectibles.
+- **Tokenized Rewards:** Motivate volunteers with incentives as they contribute to projects.
+- **Community Governance:** We plan a DAO model for users to actively participate in the evolution of the project.
+- **Transparency and Security:** Thanks to blockchain technology, all transactions and data are verifiable and secure.
+- **Global Scalability:** Designed to operate in multiple regions, connecting communities worldwide.
+
+---
+
+## Technologies Used 🛠️
 
 ### **Frontend:**
-- React: Para una interfaz de usuario rápida y reactiva.
-- Next.js: Framework moderno que mejora el rendimiento y la SEO.
+- React: For a fast and responsive user interface.
+- Next.js: A modern framework that improves performance and SEO.
 
 ### **Backend:**
-- Node.js: Plataforma robusta para el desarrollo del servidor.
-- Express: Framework flexible para crear APIs.
-- TypeORM: Gestión eficiente de bases de datos relacionales.
+- Node.js: A robust platform for server development.
+- Express: A flexible framework for creating APIs.
+- TypeORM: Efficient management of relational databases.
 
 ### **Blockchain:**
-- Stellar Ecosystem: Escalabilidad y soporte comunitario para transacciones blockchain.
-- Rust: Lenguaje rápido y seguro para el desarrollo en blockchain.
+- Stellar Ecosystem: Scalability and community support for blockchain transactions.
+- Rust: A fast and secure programming language for blockchain development.
 
-### **Base de Datos:**
-- MySQL: Sistema de base de datos relacional confiable.
-- Prisma: ORM moderno para simplificar las consultas y migraciones.
+### **Database:**
+- MySQL: A reliable relational database system.
+- Prisma: A modern ORM to simplify queries and migrations.
 
-### **Contenedores:**
-- Docker: Para garantizar entornos de desarrollo consistentes.
+### **Containers:**
+- Docker: To ensure consistent development environments.
 
 ---
 
-## Cómo Contribuir 🤝
+## How to Contribute 🤝
 
-Estamos en búsqueda de desarrolladores apasionados por el código abierto. ¡Tú puedes ayudarnos a construir VolunChain! 🙌
+We are looking for passionate open-source developers. You can help us build VolunChain! 🙌
 
-### **Habilidades Requeridas:**
+### **Required Skills:**
 - **Frontend:**
   - React
   - Next.js
@@ -58,71 +59,70 @@ Estamos en búsqueda de desarrolladores apasionados por el código abierto. ¡T�
 - **Blockchain:**
   - Stellar
   - Rust
-- **Base de Datos:**
+- **Database:**
   - MySQL
   - Prisma
 
-### Pasos para Contribuir:
-1. Haz un fork de este repositorio.
-2. Crea una rama para tu funcionalidad o corrección de bug (`git checkout -b feature/nueva-funcionalidad`).
-3. Haz tus cambios y realiza commits significativos (`git commit -m "Agrega nueva funcionalidad"`).
-4. Sube tus cambios (`git push origin feature/nueva-funcionalidad`).
-5. Crea un Pull Request y explícanos tus cambios.
+### Steps to Contribute:
+1. Fork this repository.
+2. Create a branch for your feature or bug fix (`git checkout -b feature/new-feature`).
+3. Make your changes and commit with meaningful messages (`git commit -m "Add new feature"`).
+4. Push your changes (`git push origin feature/new-feature`).
+5. Create a Pull Request and explain your changes.
 
-### Áreas en las que Necesitamos Ayuda:
-- Desarrollo de nuevas características para la plataforma.
-- Optimización del rendimiento en el frontend.
-- Mejora de la escalabilidad en la integración blockchain.
-- Implementación de pruebas automatizadas.
-
----
-
-## Documentación 📚
-
-Estamos trabajando en una wiki completa que incluirá:
-- Detalles de la arquitectura del proyecto.
-- APIs disponibles.
-- Guías para nuevos contribuidores.
-- Preguntas frecuentes sobre el proyecto y su uso.
-
-Estará disponible próximamente en este repositorio.
+### Areas Where We Need Help:
+- Developing new features for the platform.
+- Optimizing frontend performance.
+- Improving scalability in blockchain integration.
+- Implementing automated testing.
 
 ---
 
-## Enlaces Útiles 🔗
+## Documentation 📚
 
-- **OnlyDust:** [Contribuye a VolunChain](https://app.onlydust.com/p/volunchain)
-- **X:** [Síguenos en X](https://x.com/volunchain)
-- **Telegram:** [Únete a nuestra comunidad](https://t.me/volunchain/1)
+We are working on a complete wiki that will include:
+- Details of the project architecture.
+- Available APIs.
+- Guides for new contributors.
+- Frequently asked questions about the project and its use.
+
+It will be available soon in this repository.
+
+---
+
+## Useful Links 🔗
+
+- **OnlyDust:** [Contribute to VolunChain](https://app.onlydust.com/p/volunchain)
+- **X:** [Follow us on X](https://x.com/volunchain)
+- **Telegram:** [Join our community](https://t.me/volunchain/1)
 
 ---
 
 ## Roadmap 📅
 
-### **Etapa 1: MVP**
-- Crear un prototipo funcional con conexión básica entre voluntarios y organizaciones.
-- Implementar un sistema de registro y autenticación seguro.
-- Desarrollar un esquema inicial de recompensas basado en tokens.
+### **Stage 1: MVP**
+- Create a functional prototype with basic connections between volunteers and organizations.
+- Implement a secure registration and authentication system.
+- Develop an initial reward scheme based on tokens.
 
-### **Etapa 2: Escalabilidad y NFT**
-- Integrar los NFTs como certificaciones únicas.
-- Expandir las funcionalidades de búsqueda y filtro de oportunidades.
-- Implementar la versión beta pública.
+### **Stage 2: Scalability and NFT**
+- Integrate NFTs as unique certifications.
+- Expand the functionality for searching and filtering opportunities.
+- Launch the public beta version.
 
-### **Etapa 3: Governanza y DAO**
-- Diseñar y lanzar un modelo de gobernanza comunitaria.
-- Permitir que los usuarios propongan y voten cambios en la plataforma.
-- Ampliar la compatibilidad blockchain a más ecosistemas.
-
----
-
-## Licencia 📄
-Este proyecto está bajo la Licencia MIT. Consulta el archivo [LICENSE](./LICENSE) para más detalles.
+### **Stage 3: Governance and DAO**
+- Design and launch a community governance model.
+- Enable users to propose and vote on changes to the platform.
+- Expand blockchain compatibility to more ecosystems.
 
 ---
 
-## Equipo 👥
-VolunChain está siendo desarrollado con pasión por un equipo de colaboradores en ODBoost. ¡Sé parte de esta revolución en Web3!
+## License 📄
+This project is under the MIT License. See the [LICENSE](./LICENSE) file for more details.
+
+---
+
+## Team 👥
+VolunChain is being developed with passion by a team of collaborators at ODBoost. Be part of this Web3 revolution!
 
 🎉 **Empowering Volunteerism, One Block at a Time.** 🎉
-    
