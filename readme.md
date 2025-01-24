@@ -18,6 +18,12 @@ VolunChain is a blockchain-powered platform that connects volunteers with organi
 
 ---
 
+## 🌟 **Important!**
+If you found this repository helpful or contributed to it, **please give it a ⭐ on GitHub!**  
+Your support helps us grow and motivates us to continue improving VolunChain. 🙌
+
+---
+
 ## 🛠️ Technologies Used
 
 - **Frontend:** React, Next.js.
