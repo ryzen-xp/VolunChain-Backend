@@ -1,0 +1,28 @@
+version: "3.8"
+
+services:
+  app:
+    build:
+      context: .
+    container_name: volunchain_app
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: postgresql://volunchain:volunchain123@db:5432/volunchain
+    depends_on:
+      - db
+
+  db:
+    image: postgres:15
+    container_name: volunchain_db
+    environment:
+      POSTGRES_USER: volunchain
+      POSTGRES_PASSWORD: volunchain123
+      POSTGRES_DB: volunchain
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+volumes:
+  db_data:
