@@ -1,4 +1,4 @@
-# 🚀 StarShop Pull Request
+# 🚀 Volunchain Pull Request
 
 Mark with an `x` all the checkboxes that apply (like `[x]`)
 
@@ -44,4 +44,4 @@ Mark with an `x` all the checkboxes that apply (like `[x]`)
 
 ---
 
-Thank you for contributing to StarShop, we are glad that you have chosen us as your project of choice and we hope that you continue to contribute to this great project, so that together we can make our mark at the top!
+Thank you for contributing to Volunchain, we are glad that you have chosen us as your project of choice and we hope that you continue to contribute to this great project, so that together we can make our mark at the top!
