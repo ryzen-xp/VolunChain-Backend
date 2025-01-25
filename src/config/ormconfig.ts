@@ -1,11 +1,12 @@
 import { DataSource } from 'typeorm';
+import { User } from '../entities/User';
 
 const AppDataSource = new DataSource({
   type: 'postgres',
   url: process.env.DATABASE_URL,
   synchronize: true,
   logging: true,
-  entities: ['dist/entities/**/*.js'], 
+  entities: [User], 
   migrations: ['dist/migrations/**/*.js'], 
 });
 
