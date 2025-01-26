@@ -5,10 +5,10 @@
   "main": "dist/index.js",
   "scripts": {
     "dev": "ts-node-dev src/index.ts",
-    "build": "tsc",                  
-    "start": "node dist/index.js",    
-    "test": "jest",                  
-    "typeorm": "typeorm"          
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "test": "jest",
+    "typeorm": "typeorm"
   },
   "dependencies": {
     "axios": "^1.7.9",
