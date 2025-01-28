@@ -2,6 +2,8 @@ import "dotenv/config";
 import "reflect-metadata";
 import express from "express";
 import AppDataSource from "./config/ormconfig";
+import { errorHandler } from "./middlewares/errorHandler";
+import { initializeDatabase } from "./config/ormconfig";
 
 
 const app = express();
@@ -15,8 +17,13 @@ app.get("/", (req, res) => {
   res.send("VolunChain API is running!");
 });
 
+// Error handler middleware
+app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
+  errorHandler(err, req, res, next);
+});
+
 // Initialize the database and start the server
-AppDataSource.initialize()
+initializeDatabase()
   .then(() => {
     console.log("Database connected successfully!");
 
