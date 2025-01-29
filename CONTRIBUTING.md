@@ -2,22 +2,22 @@
 
 This project supports PostgreSQL (for production) and SQLite (for testing). This guide explains how to set up and use SQLite as an alternative database for testing, allowing developers to run tests without requiring a full PostgreSQL instance, simplifying the setup process for contributors.
 
-## Database Configuration
+## 🛠️ Database Configuration
 
 The application supports two database types configured via the `DB_TYPE` environment variable:
 
 - `postgres` for PostgreSQL (default)
 - `sqlite` for SQLite (testing)
 
-### Environment Setup
+### ⚙️ Environment Setup
 
 During testing, change the DB_TYPE environment variable from `postgres` to `sqlite`. This will reconfigure the TypeORM AppDataSource object to use SQLite and setup a transient, lightweight database for running tests.
 
 ### Steps
 
-1. Follow the instructions in the respository [README.md](./readme.md) to clone the repository, start Docker, and create your contribution branch.
+1. Follow the instructions in the respository [README.md](./readme.md) file to clone the repository, start Docker, and create your contribution branch.
 
-2. Ensure all dependencies are installed by runnning this command:
+2. Ensure all dependencies are installed by running this command:
 
     ```bash
     npm install
@@ -40,11 +40,11 @@ During testing, change the DB_TYPE environment variable from `postgres` to `sqli
     DB_NAME=volunchain
     ```
 
-## Running Tests
+## 🏃‍♂️Running Tests
 
 ### Quick Start
 
-After writing test scripts in the `tests` folder, run them using SQLite with the  command: `npm test` or `npm run test`.
+After writing test scripts in the `tests` folder, run them using SQLite with the  command: `npm test` or `npm run test` or `npm run test:sqlite`.
 
 ### Benefits of SQLite Testing
 
@@ -59,15 +59,34 @@ After writing test scripts in the `tests` folder, run them using SQLite with the
 - Security: Avoids using production credentials in tests.
 - Flexibility: Easily switch between environments by loading the appropriate .env file.
 
-## Database Migrations
+## 🎖️ Database Migrations
 
 Migrations should be database-agnostic to support both PostgreSQL and SQLite.
 
-## Troubleshooting
+### Example Migration
+
+#### Before (Using Postgres raw SQL)
+
+```typescript
+await queryRunner.query(`ALTER TABLE "user" ADD COLUMN "age" INTEGER`);
+```
+
+#### After (Using TypeORM API)
+
+```typescript
+import { TableColumn } from "typeorm";
+
+await queryRunner.addColumn(
+  "user",
+  new TableColumn({ name: "age", type: "integer" })
+);
+```
+
+## 🔧 Troubleshooting
 
 ### Common Issues & Fixes
 
-1. **SQLite Issues**
+1. **SQLite Permission Issues**
    - Ensure write permissions in the project directory
    - Verify `node_modules` is installed
    - Check if `sqlite3` package is installed:
@@ -78,22 +97,22 @@ Migrations should be database-agnostic to support both PostgreSQL and SQLite.
 
 2. **PostgreSQL Connection Issues**
    - Ensure PostgreSQL service is running
-   - Verify database credentials in `.env`
-   - Check if the database exists or create a new one in `psql` shell
+   - Verify database credentials in `.env` file
+   - Check if the database exists or create a new one in the `psql` shell
 
 3. **Database Inconsistencies**
 
    - Ensure migrations do not use raw SQL specific to PostgreSQL
    - Use TypeORM’s schema API for compatibility across databases
-   - Verify table constraints are supported in SQLite
+   - Verify that table constraints are supported in SQLite
 
-### Notes
+## 📝 Notes
 
 - Migrations: All migrations must use TypeORM’s schema API (e.g., queryRunner.createTable) instead of raw SQL to ensure compatibility with SQLite.
 
 - In-Memory Database: SQLite uses an in-memory database (:memory:) during tests, so no additional setup is required.
 
-- PostgreSQL-Specific Features: Avoid using PostgreSQL-specific features (e.g., jsonb, uuid) in migrations or queries if you plan to support SQLite.
+- PostgreSQL-Specific Features: Avoid using PostgreSQL-specific features (e.g., `jsonb`, `uuid`) in migrations or queries if you plan to support SQLite.
 
 ### Development Best Practices
 
@@ -109,4 +128,4 @@ If you encounter issues:
 2. Verify environment variables are set correctly
 3. Ensure dependencies are installed
 4. Check official documentation
-5. Open an issue with detailed reproduction steps
+5. Open an issue with detailed steps to reproduce the problem
