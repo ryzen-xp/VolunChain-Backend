@@ -10,6 +10,7 @@ const getDataSourceConfig = (): DataSourceOptions => {
     subscribers: ["src/subscribers/**/*.ts"],
   };
 
+  // Return data source object that uses SQLite DB when specified
   if (process.env.DB_TYPE === "sqlite") {
     return {
       ...baseConfig,
@@ -21,6 +22,7 @@ const getDataSourceConfig = (): DataSourceOptions => {
     };
   }
 
+  // Return data source object that uses PostgreSQL DB by default
   return {
     ...baseConfig,
     type: "postgres",
