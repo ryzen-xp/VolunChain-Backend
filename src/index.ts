@@ -2,7 +2,7 @@ import "dotenv/config";
 import "reflect-metadata";
 import express from "express";
 import AppDataSource from "./config/ormconfig";
-
+import authRoutes from "./routes/authRoutes";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -14,6 +14,9 @@ app.use(express.json());
 app.get("/", (req, res) => {
   res.send("VolunChain API is running!");
 });
+
+// Authentication routes
+app.use("/auth", authRoutes);
 
 // Initialize the database and start the server
 AppDataSource.initialize()
