@@ -5,9 +5,9 @@ const getDataSourceConfig = (): DataSourceOptions => {
     synchronize: true,
     dropSchema: true,
     logging: false,
-    entities: ["src/entity/**/*.ts"],
-    migrations: ["src/migration/**/*.ts"],
-    subscribers: ["src/subscriber/**/*.ts"],
+    entities: ["src/entities/**/*.ts"],
+    migrations: ["src/migrations/**/*.ts"],
+    subscribers: ["src/subscribers/**/*.ts"],
   };
 
   if (process.env.DB_TYPE === "sqlite") {

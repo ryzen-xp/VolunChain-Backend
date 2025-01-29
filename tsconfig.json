@@ -14,7 +14,7 @@
     },
     "include": [
         "src/**/*",
-        "src/entity"
+        "src/entities"
     ], // Incluye todos los archivos en `src`
     "exclude": [
         "node_modules"

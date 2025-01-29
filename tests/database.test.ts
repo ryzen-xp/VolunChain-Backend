@@ -1,6 +1,6 @@
 // src/__tests__/database.test.ts
 import AppDataSource from '../src/config/ormconfig';
-import { TestItem } from '../src/entity/TestItem';
+import { TestItem } from '../src/entities/TestItem';
 
 describe('Database Configuration', () => {
     beforeAll(async () => {
@@ -10,7 +10,7 @@ describe('Database Configuration', () => {
     });
 
     afterAll(async () => {
-        // Close the connection after tests
+        // Close the connection after testzs
         await AppDataSource.destroy();
     });
 
@@ -53,6 +53,7 @@ describe('Database Configuration', () => {
         expect(savedItem?.value).toBe(42);
         expect(savedItem?.age).toBe(11);
 
+        // Delete the item
         await testRepository.delete(items[0].id);
         const remainingItems = await testRepository.find();
         expect(remainingItems.length).toBe(0);
