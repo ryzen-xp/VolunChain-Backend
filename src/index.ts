@@ -2,8 +2,7 @@ import "dotenv/config";
 import "reflect-metadata";
 import express from "express";
 import AppDataSource from "./config/ormconfig";
-import AuthService from "./services/AuthService";
-import authMiddleware from "./middleware/authMiddleware";
+import authRoutes from "./routes/authRoutes";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -16,22 +15,8 @@ app.get("/", (req, res) => {
   res.send("VolunChain API is running!");
 });
 
-// Authentication route
-app.post("/auth/login", async (req, res) => {
-  const { walletAddress } = req.body;
-
-  try {
-    const token = await AuthService.authenticate(walletAddress);
-    res.json({ token });
-  } catch (error) {
-    res.status(401).json({ message: error.message });
-  }
-});
-
-// Protected route example
-app.get("/protected", authMiddleware, (req, res) => {
-  res.send(`Hello ${req.user.role}, your ID is ${req.user.id}`);
-});
+// Authentication routes
+app.use("/auth", authRoutes);
 
 // Initialize the database and start the server
 AppDataSource.initialize()

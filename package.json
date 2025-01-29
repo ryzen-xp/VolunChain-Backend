@@ -5,10 +5,10 @@
   "main": "dist/index.js",
   "scripts": {
     "dev": "ts-node-dev src/index.ts",
-    "build": "tsc",                  
-    "start": "node dist/index.js",    
-    "test": "jest",                  
-    "typeorm": "typeorm"          
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "test": "jest",
+    "typeorm": "typeorm"
   },
   "dependencies": {
     "axios": "^1.7.9",
@@ -17,6 +17,7 @@
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "express-validator": "^7.2.0",
+    "jsonwebtoken": "^9.0.2",
     "pg": "^8.13.1",
     "reflect-metadata": "^0.2.2",
     "typeorm": "^0.3.20"
@@ -24,6 +25,7 @@
   "devDependencies": {
     "@types/express": "^5.0.0",
     "@types/jest": "^29.5.14",
+    "@types/jsonwebtoken": "^9.0.8",
     "@types/node": "^22.10.1",
     "@types/supertest": "^6.0.2",
     "jest": "^29.7.0",
