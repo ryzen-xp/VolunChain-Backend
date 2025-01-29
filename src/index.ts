@@ -1,7 +1,10 @@
 import "dotenv/config";
 import "reflect-metadata";
 import express from "express";
+
 import { AppDataSource, redisClient } from "./config/ormconfig";
+import authRoutes from "./routes/authRoutes";
+
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -56,6 +59,9 @@ app.get("/health", async (req, res) => {
   const httpStatus = healthStatus.status === "ok" ? 200 : 503;
   res.status(httpStatus).json(healthStatus);
 });
+
+// Authentication routes
+app.use("/auth", authRoutes);
 
 // Initialize the database and start the server
 AppDataSource.initialize()
