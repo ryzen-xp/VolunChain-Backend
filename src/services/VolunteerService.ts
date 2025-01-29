@@ -1,5 +1,5 @@
-import { Volunteer } from '../entities/Volunteer';
-import AppDataSource from '../config/ormconfig';
+import { Volunteer } from "../entities/Volunteer";
+import AppDataSource from "../config/ormconfig";
 
 export default class VolunteerService {
   private volunteerRepo = AppDataSource.getRepository(Volunteer);
@@ -24,7 +24,7 @@ export default class VolunteerService {
   async getVolunteerById(id: string): Promise<Volunteer | null> {
     return this.volunteerRepo.findOne({
       where: { id },
-      relations: ['project'],
+      relations: ["project"],
     });
   }
 
