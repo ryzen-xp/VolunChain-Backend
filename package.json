@@ -7,7 +7,9 @@
     "dev": "ts-node-dev src/index.ts",
     "build": "tsc",
     "start": "node dist/index.js",
-    "test": "jest",
+    "test": "jest --runInBand",
+    "test:sqlite": "DB_TYPE=sqlite jest --runInBand",
+    "test:postgres": "DB_TYPE=postgres jest --runInBand",
     "typeorm": "typeorm"
   },
   "dependencies": {
