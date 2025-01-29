@@ -1,0 +1,67 @@
+name: Test CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: volunchain
+          POSTGRES_PASSWORD: volunchain123
+          POSTGRES_DB: volunchain_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 3
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Docker image
+        run: |
+            docker build -t volunchain-backend .
+            docker run -d --name volunchain_test --link postgres:db -e DATABASE_URL=postgresql://volunchain:volunchain123@db:5432/volunchain_test volunchain-backend
+
+      - name: Run tests in Docker
+        env:
+          DATABASE_URL: postgresql://test:test@localhost:5432/volunchain_test
+        run: |
+          docker run \
+            --network host \
+            -e DATABASE_URL \
+            volunchain-backend \
+            npm test
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-results
+          path: coverage/
+
+      - name: Stop and Remove Containers
+        if: always()
+        run: |
+          docker stop volunchain_test
+          docker rm volunchain_test    
