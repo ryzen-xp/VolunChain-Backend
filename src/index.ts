@@ -4,13 +4,21 @@ import express from "express";
 import { errorHandler } from "./middlewares/errorHandler";
 import { AppDataSource, redisClient, initializeDatabase } from "./config/ormconfig";
 import authRoutes from "./routes/authRoutes";
-
+import { SwaggerConfig } from "./config/swagger.config"; // Importar configuración de Swagger
+import cors from "cors";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const ENV = process.env.NODE_ENV || "development";
 
 // Middleware for parsing JSON requests
 app.use(express.json());
+app.use(cors());
+
+// Setup Swagger only for development environment
+if (ENV === "development") {
+  SwaggerConfig.setup(app);
+}
 
 // Health check route
 app.get("/", (req, res) => {
@@ -78,20 +86,20 @@ initializeDatabase()
       .then(() => {
         app.listen(PORT, () => {
           console.log(`Server is running on http://localhost:${PORT}`);
+          if (ENV === "development") {
+            console.log(`📚 Swagger docs available at http://localhost:${PORT}/api/docs`);
+          }
         });
       })
       .catch((error) => {
-        console.error(
-          "Server failed to start due to Redis initialization error:",
-          error
-        );
+        console.error("Server failed to start due to Redis initialization error:", error);
       });
   })
   .catch((error) => {
     console.error("Error during database initialization:", error);
   });
 
-// function to initialize Redis
+// Function to initialize Redis
 const initializeRedis = async () => {
   try {
     await redisClient.connect();
