@@ -1,8 +1,12 @@
 import { Volunteer } from "../entities/Volunteer";
 import AppDataSource from "../config/ormconfig";
-
+import { DataSource, Repository } from "typeorm";
 export default class VolunteerService {
-  private volunteerRepo = AppDataSource.getRepository(Volunteer);
+  private volunteerRepo: Repository<Volunteer>;
+
+  constructor(dataSource: DataSource = AppDataSource) {
+    this.volunteerRepo = dataSource.getRepository(Volunteer);
+  }
 
   async createVolunteer(
     name: string,
