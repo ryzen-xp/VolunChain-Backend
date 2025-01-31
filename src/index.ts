@@ -9,6 +9,8 @@ import authRoutes from "./routes/authRoutes";
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+console.info("Starting VolunChain API...");
+
 // Middleware for parsing JSON requests
 app.use(express.json());
 
@@ -100,3 +102,4 @@ const initializeRedis = async () => {
     console.error("Error during Redis initialization:", error);
   }
 };
+
