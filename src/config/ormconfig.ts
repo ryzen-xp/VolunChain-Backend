@@ -1,3 +1,4 @@
+import { DatabaseError } from '../errors';
 import { DataSource, DataSourceOptions } from "typeorm";
 import { createClient } from "redis";
 
@@ -40,5 +41,17 @@ const AppDataSource = new DataSource(getDataSourceConfig());
 const redisClient = createClient({
   url: process.env.REDIS_URL || "redis://localhost:6379",
 });
+
+export const initializeDatabase = async () => {
+  try {
+    await AppDataSource.initialize();
+    console.log("Database connected successfully!");
+  } catch (error) {
+    throw new DatabaseError("Database connection failed", {
+      field: "database_initialization",
+      error: error instanceof Error ? error.message: "Unknown error",
+    });
+  }
+};
 
 export { AppDataSource, redisClient };

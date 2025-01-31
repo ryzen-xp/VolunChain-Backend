@@ -1,8 +1,8 @@
 import "dotenv/config";
 import "reflect-metadata";
 import express from "express";
-
-import { AppDataSource, redisClient } from "./config/ormconfig";
+import { errorHandler } from "./middlewares/errorHandler";
+import { AppDataSource, redisClient, initializeDatabase } from "./config/ormconfig";
 import authRoutes from "./routes/authRoutes";
 
 
@@ -17,6 +17,11 @@ app.use(express.json());
 // Health check route
 app.get("/", (req, res) => {
   res.send("VolunChain API is running!");
+});
+
+// Error handler middleware
+app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
+  errorHandler(err, req, res, next);
 });
 
 // Health check route
@@ -66,7 +71,7 @@ app.get("/health", async (req, res) => {
 app.use("/auth", authRoutes);
 
 // Initialize the database and start the server
-AppDataSource.initialize()
+initializeDatabase()
   .then(() => {
     console.log("Database connected successfully!");
 
