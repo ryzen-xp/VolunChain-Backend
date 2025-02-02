@@ -70,6 +70,8 @@ app.get("/health", async (req, res) => {
 // Authentication routes
 app.use("/auth", authRoutes);
 
+app.use("/users");
+
 // Initialize the database and start the server
 initializeDatabase()
   .then(() => {
@@ -103,3 +105,4 @@ const initializeRedis = async () => {
   }
 };
 
+export default app;
