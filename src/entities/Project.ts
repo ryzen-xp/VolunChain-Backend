@@ -1,12 +1,9 @@
-import { Entity, Column, ManyToOne, JoinColumn, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, OneToMany} from 'typeorm';
 import { BaseEntity } from './BaseEntity';
-// import { Organization } from './Organization';
+import { Volunteer } from './Volunteer';
 
 @Entity()
 export class Project extends BaseEntity {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
-
   @Column({ type: 'varchar', length: 255, nullable: false })
   name: string;
 
@@ -22,8 +19,6 @@ export class Project extends BaseEntity {
   @Column({ type: 'date', nullable: false })
   endDate: Date;
 
-  // Commented out until the Organization file is available
-  // @ManyToOne(() => Organization, (organization) => organization.projects, { nullable: false })
-  // @JoinColumn({ name: 'organizationId' })
-  // organization: Organization;
+  @OneToMany(() => Volunteer, (volunteer) => volunteer.project)
+  volunteers!: Volunteer[];
 }

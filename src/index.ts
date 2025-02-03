@@ -11,6 +11,8 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const ENV = process.env.NODE_ENV || "development";
 
+console.info("Starting VolunChain API...");
+
 // Middleware for parsing JSON requests
 app.use(express.json());
 app.use(cors());
