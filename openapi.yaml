@@ -1,0 +1,241 @@
+openapi: 3.0.0
+info:
+  title: VolunChain API
+  description: API for managing projects in VolunChain
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000/api
+    description: Local development server
+
+paths:
+  /auth/login:
+    post:
+      summary: "User login"
+      operationId: "login"
+      requestBody:
+        description: "User wallet address"
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - walletAddress
+              properties:
+                walletAddress:
+                  type: string
+                  description: "User's wallet address"
+      responses:
+        '200':
+          description: "Authentication successful"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    description: "JWT authentication token"
+        '401':
+          description: "Unauthorized"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /auth/protected:
+    get:
+      summary: "Access a protected route"
+      operationId: "protectedRoute"
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: "Protected resource accessed successfully"
+          content:
+            text/plain:
+              schema:
+                type: string
+        '401':
+          description: "Unauthorized"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /organizations/{organizationId}/projects:
+    get:
+      summary: "Get all projects by organization ID"
+      operationId: "getProjectsByOrganizationId"
+      parameters:
+        - in: path
+          name: organizationId
+          required: true
+          schema:
+            type: string
+          description: "The ID of the organization"
+      responses:
+        '200':
+          description: "List of projects"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Project'
+        '404':
+          description: "No projects found for this organization"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /projects:
+    post:
+      summary: "Create a new project"
+      operationId: "createProject"
+      requestBody:
+        description: "Project data"
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateProject'
+      responses:
+        '201':
+          description: "Project created successfully"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+        '400':
+          description: "Bad request"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /projects/{id}:
+    get:
+      summary: "Get a project by its ID"
+      operationId: "getProjectById"
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          description: "The ID of the project"
+      responses:
+        '200':
+          description: "Project found"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+        '404':
+          description: "Project not found"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /volunteers/{volunteerId}/users:
+    get:
+      summary: "Get all users for a volunteer project"
+      operationId: "getUsersByVolunteerId"
+      parameters:
+        - in: path
+          name: volunteerId
+          required: true
+          schema:
+            type: string
+          description: "The ID of the volunteer project"
+      responses:
+        '200':
+          description: "List of users"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+        '500':
+          description: "Internal Server Error"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  schemas:
+    CreateProject:
+      type: object
+      required:
+        - name
+        - description
+        - location
+        - startDate
+        - endDate
+        - organizationId
+      properties:
+        description:
+          type: string
+        endDate:
+          type: string
+          format: date
+        location:
+          type: string
+        name:
+          type: string
+        organizationId:
+          type: string
+        startDate:
+          type: string
+          format: date
+
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+
+    Project:
+      type: object
+      required:
+        - id
+        - name
+        - description
+        - location
+        - startDate
+        - endDate
+        - organizationId
+      properties:
+        description:
+          type: string
+        endDate:
+          type: string
+          format: date
+        id:
+          type: string
+        location:
+          type: string
+        name:
+          type: string
+        organizationId:
+          type: string
+        startDate:
+          type: string
+          format: date
+
+    User:
+      type: object
+      required:
+        - id
+        - name
+        - email
+      properties:
+        email:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
