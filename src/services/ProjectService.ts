@@ -1,9 +1,9 @@
-import AppDataSource from '../config/ormconfig';
+import { prisma } from '../config/prisma';
 import { Project } from '../entities/Project';
 // import { Equal } from 'typeorm'; // Commented out until its usage is confirmed
 
 class ProjectService {
-  private projectRepo = AppDataSource.getRepository(Project);
+  private projectRepo = prisma.project;
 
   async createProject(
     name: string,
@@ -13,26 +13,28 @@ class ProjectService {
     endDate: Date,
     organizationId: string
   ): Promise<Project> {
-    const project = this.projectRepo.create({
-      name,
-      description,
-      location,
-      startDate,
-      endDate,
-      // organization: { id: organizationId }, // Commented out because it depends on the Organization entity
+    const project = await this.projectRepo.create({
+      data: {
+        name,
+        description,
+        location,
+        startDate,
+        endDate,
+        // organization: { id: organizationId }, // Commented out because it depends on the Organization entity
+      },
     });
-    return this.projectRepo.save(project);
+    return project;
   }
 
   async getProjectById(id: string): Promise<Project | null> {
-    return this.projectRepo.findOne({
+    return this.projectRepo.findUnique({
       where: { id }, // Removed Equal to simplify for now
       // relations: ['organization'], // Commented out because it depends on the Organization entity
     });
   }
 
   async getProjectsByOrganizationId(organizationId: string): Promise<Project[]> {
-    return this.projectRepo.find({
+    return this.projectRepo.findMany({
       // where: { organization: { id: organizationId } }, // Commented out because it depends on the Organization entity
     });
   }
