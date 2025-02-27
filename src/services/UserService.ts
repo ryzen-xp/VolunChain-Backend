@@ -1,23 +1,23 @@
-import { AppDataSource } from '../config/ormconfig';
-import { User } from '../entities/User';
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient();
 
 class UserService {
-  private userRepo = AppDataSource.getRepository(User);
-
-  async createUser(name: string, lastName: string, email: string, password: string, wallet: string): Promise<User> {
-    const existingUser = await this.userRepo.findOne({ where: { email } });
+  async createUser(username: string, email: string, password_hash: string, role: string) {
+    const existingUser = await prisma.users.findUnique({ where: { email } });
     if (existingUser) throw new Error('Email already exists');
 
-    const user = this.userRepo.create({ name, lastName, email, password, wallet });
-    return this.userRepo.save(user);
+    return await prisma.users.create({
+      data: { username, email, password_hash, role },
+    });
   }
 
-  async getUserById(id: string): Promise<User | null> {
-    return this.userRepo.findOne({ where: { id } });
+  async getUserById(id: number) {
+    return await prisma.users.findUnique({ where: { id } });
   }
 
-  async getUserByEmail(email: string): Promise<User | null> {
-    return this.userRepo.findOne({ where: { email } });
+  async getUserByEmail(email: string) {
+    return await prisma.users.findUnique({ where: { email } });
   }
 }
 
