@@ -1,8 +1,7 @@
 import "dotenv/config";
 import "reflect-metadata";
 import express from "express";
-import AppDataSource from "./config/ormconfig";
-
+import { prisma } from "./config/prisma";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -16,7 +15,7 @@ app.get("/", (req, res) => {
 });
 
 // Initialize the database and start the server
-AppDataSource.initialize()
+prisma.$connect()
   .then(() => {
     console.log("Database connected successfully!");
 
