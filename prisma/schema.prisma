@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -13,9 +7,29 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model diesel_schema_migrations {
+  version String   @id @db.VarChar(50)
+  run_on  DateTime @default(now()) @db.Timestamp(6)
 
-model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
+  @@map("__diesel_schema_migrations")
 }
+
+model escrows {
+  id         Int       @id @default(autoincrement())
+  user_id    Int
+  amount     Decimal   @db.Decimal(10, 2)
+  status     String    @db.VarChar(50)
+  created_at DateTime? @default(now()) @db.Timestamp(6)
+  users      users     @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model users {
+  id            Int       @id @default(autoincrement())
+  username      String    @unique @db.VarChar(255)
+  email         String    @unique @db.VarChar(255)
+  password_hash String
+  role          String    @db.VarChar(50)
+  created_at    DateTime? @default(now()) @db.Timestamp(6)
+  escrows       escrows[]
+}
+
