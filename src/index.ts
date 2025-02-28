@@ -1,11 +1,7 @@
 import "dotenv/config";
 import "reflect-metadata";
 import express from "express";
-import { errorHandler } from "./middlewares/errorHandler";
-import { AppDataSource, redisClient, initializeDatabase } from "./config/ormconfig";
-import authRoutes from "./routes/authRoutes";
-import { SwaggerConfig } from "./config/swagger.config"; // Importar configuración de Swagger
-import cors from "cors";
+import { prisma } from "./config/prisma";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -43,7 +39,7 @@ app.get("/health", async (req, res) => {
   // Checking database
   try {
     const start_time = Date.now();
-    await AppDataSource.query("SELECT 1");
+    await prisma.$queryRaw("SELECT 1");
     const response_time = Date.now() - start_time;
     healthStatus.services.database = {
       status: "connected",
@@ -81,7 +77,7 @@ app.use("/auth", authRoutes);
 app.use("/users");
 
 // Initialize the database and start the server
-initializeDatabase()
+prisma.$connect()
   .then(() => {
     console.log("Database connected successfully!");
 
