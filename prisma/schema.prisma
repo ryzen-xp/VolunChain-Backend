@@ -1,10 +1,108 @@
 generator client {
-  provider = "prisma-client-js"
+  provider = "prisma-client-js" // Specifies the Prisma Client generator
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider = "postgresql"       // Specifies PostgreSQL as the database provider
+  url      = env("DATABASE_URL") // Loads the database connection URL from environment variables
+}
+
+// User model represents a system user
+model User {
+  id        String @id @default(uuid()) // Unique identifier
+  createdAt DateTime @default(now()) // Timestamp for record creation
+  updatedAt DateTime @updatedAt // Timestamp for record update
+  name      String
+  lastName  String
+  email     String @unique // Unique email constraint
+  password  String
+  wallet    String @unique // Unique wallet identifier
+  nfts      NFT[]   @relation("UserNFTs") // One-to-many relationship with NFTs
+}
+
+// Organization model represents an entity like a company or group
+model Organization {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name      String
+  email     String   @unique
+  password  String
+  category  String
+  wallet    String   @unique
+  nfts      NFT[]    @relation("OrganizationNFTs") // One-to-many relationship with NFTs
+}
+
+// BaseEntity model for common fields inherited by other models
+model BaseEntity {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// NFT model represents a Non-Fungible Token
+model NFT {
+  id             String       @id @default(uuid())
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  userId         String // Foreign key for User
+  organizationId String // Foreign key for Organization
+  description    String
+
+  user          User          @relation(fields: [userId], references: [id], name: "UserNFTs")
+  organization  Organization  @relation(fields: [organizationId], references: [id], name: "OrganizationNFTs")
+
+  @@index([userId]) // Index for quick lookup
+  @@index([organizationId])
+}
+
+// Project model represents a project within the system
+model Project {
+  id          String      @id @default(uuid())
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  name        String      @db.VarChar(255)
+  description String
+  location    String      @db.VarChar(255)
+  startDate   DateTime
+  endDate     DateTime
+
+  volunteers  Volunteer[] // One-to-many relationship with Volunteers
+}
+
+// TestItem model is a simple entity for testing purposes
+model TestItem {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name      String
+  value     Int
+  age       Int
+}
+
+// UserVolunteer model represents the relationship between Users and Volunteers
+model UserVolunteer {
+  userId      String // Foreign key for User
+  volunteerId String // Foreign key for Volunteer
+  joinedAt    DateTime @default(now()) // Timestamp for when the user joined as a volunteer
+
+  @@id([userId, volunteerId]) // Composite primary key
+}
+
+// Volunteer model represents a volunteer position within a project
+model Volunteer {
+  id           String   @id @default(uuid())
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  name         String   @db.VarChar(255)
+  description  String   @db.VarChar(255)
+  requirements String   @db.VarChar(255)
+  incentive    String?  // Optional field for incentives
+  projectId    String // Foreign key for Project
+
+  project      Project  @relation(fields: [projectId], references: [id])
+
+  @@index([projectId]) // Index for quick lookup
 }
 
 model diesel_schema_migrations {
