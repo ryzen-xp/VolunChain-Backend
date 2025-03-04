@@ -6,32 +6,20 @@ class ProjectController {
 
   async createProject(req: Request, res: Response): Promise<void> {
     try {
-      const {
-        name,
-        description,
-        location,
-        startDate,
-        endDate,
-        organizationId,
-      } = req.body;
+      const { name, description, location, startDate, endDate } = req.body;
       const project = await this.projectService.createProject(
         name,
         description,
         location,
         new Date(startDate),
-        new Date(endDate),
-        organizationId
+        new Date(endDate)
       );
       res.status(201).json(project);
     } catch (error) {
-      res
-        .status(400)
-        .json({
-          error:
-            error instanceof Error
-              ? error.message
-              : "An unknown error occurred",
-        });
+      res.status(400).json({
+        error:
+          error instanceof Error ? error.message : "An unknown error occurred",
+      });
     }
   }
 
@@ -45,14 +33,10 @@ class ProjectController {
       }
       res.status(200).json(project);
     } catch (error) {
-      res
-        .status(400)
-        .json({
-          error:
-            error instanceof Error
-              ? error.message
-              : "An unknown error occurred",
-        });
+      res.status(400).json({
+        error:
+          error instanceof Error ? error.message : "An unknown error occurred",
+      });
     }
   }
 
@@ -82,14 +66,10 @@ class ProjectController {
         },
       });
     } catch (error) {
-      res
-        .status(400)
-        .json({
-          error:
-            error instanceof Error
-              ? error.message
-              : "An unknown error occurred",
-        });
+      res.status(400).json({
+        error:
+          error instanceof Error ? error.message : "An unknown error occurred",
+      });
     }
   }
 }
