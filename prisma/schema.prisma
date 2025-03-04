@@ -32,6 +32,7 @@ model Organization {
   category  String
   wallet    String   @unique
   nfts      NFT[]    @relation("OrganizationNFTs") // One-to-many relationship with NFTs
+  projects  Project[] // Add this line for the opposite relation
 }
 
 // BaseEntity model for common fields inherited by other models
@@ -59,16 +60,17 @@ model NFT {
 
 // Project model represents a project within the system
 model Project {
-  id          String      @id @default(uuid())
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
-  name        String      @db.VarChar(255)
-  description String
-  location    String      @db.VarChar(255)
-  startDate   DateTime
-  endDate     DateTime
-
-  volunteers  Volunteer[] // One-to-many relationship with Volunteers
+  id             String      @id @default(uuid())
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+  name           String      @db.VarChar(255)
+  description    String
+  location       String      @db.VarChar(255)
+  startDate      DateTime
+  endDate        DateTime
+  organizationId String      // Add this field
+  organization   Organization @relation(fields: [organizationId], references: [id]) // Add this relation
+  volunteers     Volunteer[]
 }
 
 // TestItem model is a simple entity for testing purposes
